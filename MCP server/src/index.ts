@@ -84,52 +84,52 @@ class MCPServer {
             required: ['id'],
           },
         },
-        // {
-        //   name: 'search_users',
-        //   description: 'Search users by query string',
-        //   inputSchema: {
-        //     type: 'object',
-        //     properties: {
-        //       q: {
-        //         type: 'string',
-        //         minLength: 1,
-        //         description: 'Search query to filter users',
-        //       },
-        //       limit: {
-        //         type: 'number',
-        //         minimum: 1,
-        //         maximum: 100,
-        //         default: 30,
-        //         description: 'Number of users to fetch',
-        //       },
-        //       skip: {
-        //         type: 'number',
-        //         minimum: 0,
-        //         default: 0,
-        //         description: 'Number of users to skip',
-        //       },
-        //     },
-        //     required: ['q'],
-        //   },
-        // },
-        // {
-        //   name: 'filter_users',
-        //   description: 'Filter users by a specific key-value pair',
-        //   inputSchema: {
-        //     type: 'object',
-        //     properties: {
-        //       filterKey: {
-        //         type: 'string',
-        //         description: 'The key to filter by (e.g., "gender", "bloodGroup")',
-        //       },
-        //       filterValue: {
-        //         type: 'string',
-        //         description: 'The value to filter by',
-        //       },
-        //     },
-        //     required: ['filterKey', 'filterValue'],
-        //   },
-        // },
+        {
+          name: 'search_users',
+          description: 'Search users by query string',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              q: {
+                type: 'string',
+                minLength: 1,
+                description: 'Search query to filter users',
+              },
+              limit: {
+                type: 'number',
+                minimum: 1,
+                maximum: 100,
+                default: 30,
+                description: 'Number of users to fetch',
+              },
+              skip: {
+                type: 'number',
+                minimum: 0,
+                default: 0,
+                description: 'Number of users to skip',
+              },
+            },
+            required: ['q'],
+          },
+        },
+        {
+          name: 'filter_users',
+          description: 'Filter users by a specific key-value pair',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              filterKey: {
+                type: 'string',
+                description: 'The key to filter by (e.g., "gender", "bloodGroup")',
+              },
+              filterValue: {
+                type: 'string',
+                description: 'The value to filter by',
+              },
+            },
+            required: ['filterKey', 'filterValue'],
+          },
+        },
       ];
 
       return { tools };
