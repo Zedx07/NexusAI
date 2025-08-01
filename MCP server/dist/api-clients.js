@@ -8,7 +8,10 @@ const axios_1 = __importDefault(require("axios"));
 const types_1 = require("./types");
 class DummyJSONClient {
     client;
+    companiesClient;
     baseURL = 'https://dummyjson.com';
+    companiesBaseURL = 'https://underwritingportal.orion.insurancearticlez.com';
+    bearerToken = 'your-hardcoded-token-here'; // Replace with actual token
     constructor() {
         this.client = axios_1.default.create({
             baseURL: this.baseURL,
@@ -16,6 +19,16 @@ class DummyJSONClient {
             headers: {
                 'Content-Type': 'application/json',
                 'User-Agent': 'MCP-Server-Jake/1.0.0',
+            },
+        });
+        // Create separate client for companies API
+        this.companiesClient = axios_1.default.create({
+            baseURL: this.companiesBaseURL,
+            timeout: 10000,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.bearerToken}`,
+                'accept': 'application/json',
             },
         });
         // Add request interceptor for logging
@@ -32,6 +45,21 @@ class DummyJSONClient {
             return response;
         }, (error) => {
             console.error('Response error:', error.response?.status, error.response?.statusText);
+            return Promise.reject(error);
+        });
+        // Add interceptors for companies client
+        this.companiesClient.interceptors.request.use((config) => {
+            console.log(`Making companies request to: ${config.method?.toUpperCase()} ${config.url}`);
+            return config;
+        }, (error) => {
+            console.error('Companies request error:', error);
+            return Promise.reject(error);
+        });
+        this.companiesClient.interceptors.response.use((response) => {
+            console.log(`Companies response received: ${response.status} ${response.statusText}`);
+            return response;
+        }, (error) => {
+            console.error('Companies response error:', error.response?.status, error.response?.statusText);
             return Promise.reject(error);
         });
     }
@@ -113,6 +141,25 @@ class DummyJSONClient {
         catch (error) {
             console.error('Error filtering users:', error);
             throw new Error(`Failed to filter users: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
+    }
+    /**
+     * Get companies by name from the underwriting portal
+     */
+    async getCompanies(companyName) {
+        try {
+            const url = '/api/Customer/GetCompanies';
+            const requestBody = {
+                company_name: companyName
+            };
+            const response = await this.companiesClient.post(url, requestBody);
+            // Validate response with Zod (allowing for flexible structure)
+            const validatedData = types_1.CompaniesResponseSchema.parse(response.data);
+            return validatedData;
+        }
+        catch (error) {
+            console.error('Error fetching companies:', error);
+            throw new Error(`Failed to fetch companies: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     }
 }

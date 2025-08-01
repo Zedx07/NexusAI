@@ -103,3 +103,24 @@ export const SearchUsersArgsSchema = z.object({
 export type GetUsersArgs = z.infer<typeof GetUsersArgsSchema>;
 export type GetUserByIdArgs = z.infer<typeof GetUserByIdArgsSchema>;
 export type SearchUsersArgs = z.infer<typeof SearchUsersArgsSchema>;
+
+// Company API schemas
+export const CompanySchema = z.object({
+  id: z.string().or(z.number()).optional(),
+  name: z.string(),
+  // Add more fields as needed based on actual API response
+}).passthrough(); // Allow additional fields that might be returned by the API
+
+export const CompaniesResponseSchema = z.object({
+  companies: z.array(CompanySchema).optional(),
+  data: z.array(CompanySchema).optional(),
+  // Support different response formats
+}).passthrough();
+
+export const GetCompaniesArgsSchema = z.object({
+  company_name: z.string().min(1).describe('Company name to search for'),
+});
+
+export type Company = z.infer<typeof CompanySchema>;
+export type CompaniesResponse = z.infer<typeof CompaniesResponseSchema>;
+export type GetCompaniesArgs = z.infer<typeof GetCompaniesArgsSchema>;

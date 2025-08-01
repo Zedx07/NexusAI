@@ -13,9 +13,11 @@ import {
   GetUsersArgsSchema,
   GetUserByIdArgsSchema,
   SearchUsersArgsSchema,
+  GetCompaniesArgsSchema,
   GetUsersArgs,
   GetUserByIdArgs,
   SearchUsersArgs,
+  GetCompaniesArgs,
 } from './types.js';
 
 class MCPServer {
@@ -130,6 +132,21 @@ class MCPServer {
             required: ['filterKey', 'filterValue'],
           },
         },
+        {
+          name: 'get_companies',
+          description: 'Get companies from the underwriting portal by company name',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              company_name: {
+                type: 'string',
+                minLength: 1,
+                description: 'Company name to search for',
+              },
+            },
+            required: ['company_name'],
+          },
+        },
       ];
 
       return { tools };
@@ -149,6 +166,8 @@ class MCPServer {
             return await this.handleSearchUsers(args);
           case 'filter_users':
             return await this.handleFilterUsers(args);
+          case 'get_companies':
+            return await this.handleGetCompanies(args);
           default:
             throw new Error(`Unknown tool: ${name}`);
         }
@@ -232,6 +251,23 @@ ${JSON.stringify(result, null, 2)}`,
         {
           type: 'text',
           text: `Filter results for ${filterKey}="${filterValue}" (${result.total} matches, showing ${result.users.length}):
+
+${JSON.stringify(result, null, 2)}`,
+        },
+      ],
+      isError: false,
+    };
+  }
+
+  private async handleGetCompanies(args: unknown): Promise<CallToolResult> {
+    const validatedArgs = GetCompaniesArgsSchema.parse(args);
+    const result = await this.apiClient.getCompanies(validatedArgs.company_name);
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `Companies matching "${validatedArgs.company_name}":
 
 ${JSON.stringify(result, null, 2)}`,
         },

@@ -837,4 +837,88 @@ export declare const SearchUsersArgsSchema: z.ZodObject<{
 export type GetUsersArgs = z.infer<typeof GetUsersArgsSchema>;
 export type GetUserByIdArgs = z.infer<typeof GetUserByIdArgsSchema>;
 export type SearchUsersArgs = z.infer<typeof SearchUsersArgsSchema>;
+export declare const CompanySchema: z.ZodObject<{
+    id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+    name: z.ZodString;
+}, "passthrough", z.ZodTypeAny, z.objectOutputType<{
+    id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+    name: z.ZodString;
+}, z.ZodTypeAny, "passthrough">, z.objectInputType<{
+    id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+    name: z.ZodString;
+}, z.ZodTypeAny, "passthrough">>;
+export declare const CompaniesResponseSchema: z.ZodObject<{
+    companies: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">>, "many">>;
+    data: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">>, "many">>;
+}, "passthrough", z.ZodTypeAny, z.objectOutputType<{
+    companies: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">>, "many">>;
+    data: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">>, "many">>;
+}, z.ZodTypeAny, "passthrough">, z.objectInputType<{
+    companies: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">>, "many">>;
+    data: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
+        id: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        name: z.ZodString;
+    }, z.ZodTypeAny, "passthrough">>, "many">>;
+}, z.ZodTypeAny, "passthrough">>;
+export declare const GetCompaniesArgsSchema: z.ZodObject<{
+    company_name: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    company_name: string;
+}, {
+    company_name: string;
+}>;
+export type Company = z.infer<typeof CompanySchema>;
+export type CompaniesResponse = z.infer<typeof CompaniesResponseSchema>;
+export type GetCompaniesArgs = z.infer<typeof GetCompaniesArgsSchema>;
 //# sourceMappingURL=types.d.ts.map

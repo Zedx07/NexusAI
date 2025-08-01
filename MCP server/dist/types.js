@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SearchUsersArgsSchema = exports.GetUserByIdArgsSchema = exports.GetUsersArgsSchema = exports.UsersResponseSchema = exports.UserSchema = void 0;
+exports.GetCompaniesArgsSchema = exports.CompaniesResponseSchema = exports.CompanySchema = exports.SearchUsersArgsSchema = exports.GetUserByIdArgsSchema = exports.GetUsersArgsSchema = exports.UsersResponseSchema = exports.UserSchema = void 0;
 const zod_1 = require("zod");
 // DummyJSON User Schema
 exports.UserSchema = zod_1.z.object({
@@ -93,5 +93,19 @@ exports.SearchUsersArgsSchema = zod_1.z.object({
     q: zod_1.z.string().min(1).describe('Search query to filter users'),
     limit: zod_1.z.number().min(1).max(100).optional().default(30).describe('Number of users to fetch'),
     skip: zod_1.z.number().min(0).optional().default(0).describe('Number of users to skip'),
+});
+// Company API schemas
+exports.CompanySchema = zod_1.z.object({
+    id: zod_1.z.string().or(zod_1.z.number()).optional(),
+    name: zod_1.z.string(),
+    // Add more fields as needed based on actual API response
+}).passthrough(); // Allow additional fields that might be returned by the API
+exports.CompaniesResponseSchema = zod_1.z.object({
+    companies: zod_1.z.array(exports.CompanySchema).optional(),
+    data: zod_1.z.array(exports.CompanySchema).optional(),
+    // Support different response formats
+}).passthrough();
+exports.GetCompaniesArgsSchema = zod_1.z.object({
+    company_name: zod_1.z.string().min(1).describe('Company name to search for'),
 });
 //# sourceMappingURL=types.js.map
