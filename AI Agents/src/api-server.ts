@@ -16,7 +16,7 @@ export class APIServer {
 
   constructor() {
     this.app = express();
-    this.port = parseInt(process.env.PORT || '3001');
+    this.port = parseInt(process.env.PORT || '3002');
     
     // Initialize AI Agent with configuration
     const agentConfig: AgentConfig = {
@@ -49,10 +49,10 @@ export class APIServer {
     // Security middleware
     this.app.use(helmet());
 
-    // CORS configuration
+    // CORS configuration - Allow all origins for development
     this.app.use(cors({
-      origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-      credentials: true,
+      origin: '*',
+      credentials: true
     }));
 
     // Body parsing middleware

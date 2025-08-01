@@ -19,7 +19,7 @@ class APIServer {
     port;
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = parseInt(process.env.PORT || '3001');
+        this.port = parseInt(process.env.PORT || '3002');
         // Initialize AI Agent with configuration
         const agentConfig = {
             name: 'Jake Assistant',
@@ -48,10 +48,10 @@ class APIServer {
     setupMiddleware() {
         // Security middleware
         this.app.use((0, helmet_1.default)());
-        // CORS configuration
+        // CORS configuration - Allow all origins for development
         this.app.use((0, cors_1.default)({
-            origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-            credentials: true,
+            origin: '*',
+            credentials: true
         }));
         // Body parsing middleware
         this.app.use(express_1.default.json({ limit: '10mb' }));

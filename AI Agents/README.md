@@ -34,35 +34,41 @@ src/
 
 1. **Environment Variables**:
    Create a `.env` file:
+
    ```bash
    cp .env.example .env
    ```
 
    Fill in your configuration:
+
    ```bash
    GEMINI_API_KEY=your_gemini_api_key_here
    GEMINI_MODEL=gemini-1.5-pro
    MCP_SERVER_PATH=../MCP server/dist/index.js
-   PORT=3001
-   CORS_ORIGIN=http://localhost:3000
+   PORT=3002
+   CORS_ORIGIN=http://localhost:3000,http://localhost:8000,http://localhost:8080
    ```
 
 2. **Install Dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Build the Project**:
+
    ```bash
    npm run build
    ```
 
 4. **Start the Service**:
+
    ```bash
    npm start
    ```
 
    For development:
+
    ```bash
    npm run dev
    ```
@@ -70,12 +76,15 @@ src/
 ## API Endpoints
 
 ### Health Check
+
 ```bash
 GET /health
 ```
+
 Returns the health status of the service and MCP connection.
 
 ### Chat
+
 ```bash
 POST /chat
 Content-Type: application/json
@@ -88,11 +97,12 @@ Content-Type: application/json
 ```
 
 ### Conversations
+
 ```bash
 # Get conversation
 GET /conversations/:conversationId
 
-# Get user conversations  
+# Get user conversations
 GET /users/:userId/conversations
 
 # Clear conversation
@@ -100,6 +110,7 @@ DELETE /conversations/:conversationId
 ```
 
 ### Tools
+
 ```bash
 # Get available tools
 GET /tools
@@ -109,6 +120,7 @@ POST /admin/reconnect-mcp
 ```
 
 ### Configuration
+
 ```bash
 # Get current config (API key redacted)
 GET /config
@@ -136,7 +148,7 @@ GET /config
 User: "Find users named John"
   ↓
 Gemini: Analyzes intent → Tool call: search_users(q: "John")
-  ↓  
+  ↓
 MCP Server: Searches DummyJSON API → Returns user data
   ↓
 Gemini: Processes results → "I found 2 users named John..."
@@ -155,6 +167,7 @@ The service connects to your MCP server automatically:
 - **Health Checks**: Monitors connection status
 
 Available tools from your MCP server:
+
 - `get_users` - Fetch paginated user list
 - `get_user_by_id` - Get specific user
 - `search_users` - Search users by query
@@ -163,6 +176,7 @@ Available tools from your MCP server:
 ## Gemini Configuration
 
 The service uses Gemini 1.5 Pro with:
+
 - **Temperature**: 0.7 (balanced creativity/consistency)
 - **Max Tokens**: 8192
 - **Function Calling**: Enabled for tool integration
@@ -171,6 +185,7 @@ The service uses Gemini 1.5 Pro with:
 ## Error Handling
 
 Comprehensive error handling for:
+
 - **MCP Connection Failures**: Auto-reconnection logic
 - **Gemini API Errors**: Fallback responses
 - **Tool Execution Errors**: Graceful degradation
@@ -187,13 +202,15 @@ Comprehensive error handling for:
 ## Monitoring
 
 Check service health:
+
 ```bash
-curl http://localhost:3001/health
+curl http://localhost:3002/health
 ```
 
 Response includes:
+
 - Service status
-- MCP connection status  
+- MCP connection status
 - Available tools
 - Active conversation count
 
@@ -208,15 +225,18 @@ Response includes:
 ## Troubleshooting
 
 **MCP Connection Issues**:
+
 - Check MCP server path in `.env`
 - Ensure MCP server builds successfully
 - Check logs for connection errors
 
 **Gemini API Issues**:
+
 - Verify API key is correct
 - Check quota/billing in Google AI Studio
 - Review API rate limits
 
 **Port Conflicts**:
-- Change PORT in `.env` if 3001 is taken
+
+- Change PORT in `.env` if 3002 is taken
 - Update CORS_ORIGIN for your frontend
